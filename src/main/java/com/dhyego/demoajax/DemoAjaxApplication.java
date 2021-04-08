@@ -20,10 +20,16 @@ public class DemoAjaxApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        SocialMetaTag og = service.getOpenGraphByUrl("https://www.youtube.com/watch?v=bqTTds_ng8I&ab_channel=CoolerMaster");
-
+        SocialMetaTag og = service
+                .getOpenGraphByUrl("https://www.pichau.com.br/hardware/placa-m-e/placa-mae-asus-rog-strix-z490-f-gaming-ddr4-socket-lga1200-intel-z490");
         System.out.println(og);
+
+        System.out.println("\n");
         
+        SocialMetaTag twitter = service
+                .getTwitterCardByUrl("https://www.pichau.com.br/hardware/placa-m-e/placa-mae-asus-rog-strix-z490-f-gaming-ddr4-socket-lga1200-intel-z490");
+        System.out.println(twitter);
+
     }
 
 }
