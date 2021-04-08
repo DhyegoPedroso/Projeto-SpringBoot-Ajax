@@ -3,15 +3,14 @@ package com.dhyego.demoajax.domain;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-
 @SuppressWarnings("serial")
-public class SocialMetaTag implements Serializable{
+public class SocialMetaTag implements Serializable {
 
     private String site;
-    private String titulo;
+    private String title;
     private String url;
     private String image;
 
@@ -23,12 +22,12 @@ public class SocialMetaTag implements Serializable{
         this.site = site;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUrl() {
@@ -46,7 +45,14 @@ public class SocialMetaTag implements Serializable{
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "SocialMetaTag: "
+                + "\nsite=" + site
+                + "\ntitle=" + title
+                + "\nurl=" + url
+                + "\nimage=" + image;
+    }
+
 }
