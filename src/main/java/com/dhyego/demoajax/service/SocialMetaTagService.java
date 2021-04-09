@@ -24,23 +24,20 @@ public class SocialMetaTagService {
         SocialMetaTag twitter = getTwitterCardByUrl(url);
         SocialMetaTag openGraph = getOpenGraphByUrl(url);
 
+        if (!isEmpty(twitter)) {
+            return twitter;
+        }
+
         if (!isEmpty(openGraph)) {
             return openGraph;
         }
 
-        if (!isEmpty(twitter)) {
-            return twitter;
-
-        } else {
-
-            SocialMetaTag tag = new SocialMetaTag();
-            tag.setTitle("null");
-            tag.setSite("null");
-            tag.setImage("null");
-            tag.setUrl("null");
-            return tag;
-
-        }
+        SocialMetaTag tag = new SocialMetaTag();
+        tag.setTitle("null");
+        tag.setSite("null");
+        tag.setImage("null");
+        tag.setUrl("null");
+        return tag;
 
     }
 
@@ -76,12 +73,15 @@ public class SocialMetaTagService {
         if (tag.getImage().isEmpty()) {
             return true;
         }
-//        if (tag.getSite().isEmpty()) {
-//            return true;
-//        }
+
+        if (tag.getSite().isEmpty()) {
+            return true;
+        }
+
         if (tag.getTitle().isEmpty()) {
             return true;
         }
+
 //        if (tag.getUrl().isEmpty()) {
 //            return true;
 //        }
