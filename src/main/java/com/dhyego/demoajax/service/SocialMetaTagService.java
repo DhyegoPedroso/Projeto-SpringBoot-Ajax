@@ -24,12 +24,12 @@ public class SocialMetaTagService {
         SocialMetaTag twitter = getTwitterCardByUrl(url);
         SocialMetaTag openGraph = getOpenGraphByUrl(url);
 
-        if (!isEmpty(twitter)) {
-            return twitter;
-        }
-
         if (!isEmpty(openGraph)) {
             return openGraph;
+        }
+
+        if (!isEmpty(twitter)) {
+            return twitter;
         }
 
         SocialMetaTag tag = new SocialMetaTag();
