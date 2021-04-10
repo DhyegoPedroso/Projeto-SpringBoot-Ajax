@@ -21,23 +21,17 @@ public class SocialMetaTagService {
 
     public SocialMetaTag getSocialMetaTagByUrl(String url) {
 
-        SocialMetaTag twitter = getTwitterCardByUrl(url);
         SocialMetaTag openGraph = getOpenGraphByUrl(url);
 
         if (!isEmpty(openGraph)) {
             return openGraph;
         }
-
+        SocialMetaTag twitter = getTwitterCardByUrl(url);
         if (!isEmpty(twitter)) {
             return twitter;
         }
 
-        SocialMetaTag tag = new SocialMetaTag();
-        tag.setTitle("null");
-        tag.setSite("null");
-        tag.setImage("null");
-        tag.setUrl("null");
-        return tag;
+        return null;
 
     }
 
@@ -82,9 +76,6 @@ public class SocialMetaTagService {
             return true;
         }
 
-//        if (tag.getUrl().isEmpty()) {
-//            return true;
-//        }
         return false;
     }
 }
