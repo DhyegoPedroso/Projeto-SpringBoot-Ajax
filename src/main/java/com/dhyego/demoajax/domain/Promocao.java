@@ -3,6 +3,7 @@ package com.dhyego.demoajax.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class Promocao implements Serializable {
     private int likes;
 
     @Column(name = "data_cadastro", nullable = false)
-    private LocalDate dtCadastro;
+    private LocalDateTime dtCadastro;
 
     @ManyToOne
     @JoinColumn(name = "categoriaId")
@@ -119,11 +120,11 @@ public class Promocao implements Serializable {
         this.likes = likes;
     }
 
-    public LocalDate getDtCadastro() {
+    public LocalDateTime getDtCadastro() {
         return dtCadastro;
     }
 
-    public void setDtCadastro(LocalDate dtCadastro) {
+    public void setDtCadastro(LocalDateTime dtCadastro) {
         this.dtCadastro = dtCadastro;
     }
 
