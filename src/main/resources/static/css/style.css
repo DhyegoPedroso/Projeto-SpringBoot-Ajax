@@ -7,8 +7,10 @@
 }
 
 .loader{
-    width:180px;
-    height: 180px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width:150px;
+    height: 150px;
     background-color: skyblue;
     border-radius: 50%;
     position: relative;
@@ -18,9 +20,9 @@
 .loader:before, .loader:after{
     content:'';
     position: absolute;
-    width:180px;
-    height: 180px;
-    top:-150px;
+    width:150px;
+    height: 150px;
+    top:-80px;
     background-color: #fff;
 }
 .loader:before{
