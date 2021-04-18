@@ -17,6 +17,11 @@ import com.dhyego.demoajax.domain.Categoria;
 import com.dhyego.demoajax.domain.Promocao;
 import com.dhyego.demoajax.repository.CategoriaRepository;
 import com.dhyego.demoajax.repository.PromocaoRepository;
+import java.util.HashMap;
+import java.util.Map;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 /**
  *
@@ -47,8 +52,20 @@ public class PromocaoController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Promocao> salvarPromocao(Promocao promocao) {
+    public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
 
+        if (result.hasErrors()) {
+            
+            Map<String, String> errors = new HashMap<>();
+            
+             for (FieldError error : result.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+         
+             return ResponseEntity.unprocessableEntity().body(errors);
+             
+        }
+        
         log.info("Promocao {}", promocao.toString());
         promocao.setDtCadastro(LocalDateTime.now());
         promocaoRepository.save(promocao);
