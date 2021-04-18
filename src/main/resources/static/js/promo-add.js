@@ -22,6 +22,16 @@ $("#form-add-promo").submit(function (evt) {
         data: promo,
 
         beforeSend: function () {
+            // removendo as mensagens
+            $("span").closest('.error-span').remove();
+            
+            // remover as bordas vermelhas
+            $("#categoria").removeClass("is-invalid");
+            $("#preco").removeClass("is-invalid");
+            $("#linkPromocao").removeClass("is-invalid");
+            $("#titulo").removeClass("is-invalid");
+            
+            // Habita o loading
             $("#form-add-promo").hide();
             $("#loader-form").addClass("loader").show();
         },
@@ -32,7 +42,10 @@ $("#form-add-promo").submit(function (evt) {
             });
             $("#linkImagem").attr("src", "/images/promo-dark.png");
             $("#site").text("");
-            $("#alert").addClass("alert alert-success").text("OK! Promoção cadastrada com sucesso.");
+            $("#alert")
+                    .removeClass("alert alert-danger")
+                    .addClass("alert alert-success")
+                    .text("OK! Promoção cadastrada com sucesso.");
         },
 
         statusCode: {
