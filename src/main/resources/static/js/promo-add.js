@@ -22,6 +22,11 @@ $("#form-add-promo").submit(function (evt) {
         data: promo,
 
         success: function () {
+            $("#form-add-promo").each(function () {
+                this.reset();
+            });
+            $("#linkImagem").attr("src", "/images/promo-dark.png");
+            $("#site").text("");
             $("#alert").addClass("alert alert-success").text("OK! Promoção cadastrada com sucesso.");
         },
 
@@ -49,7 +54,7 @@ $("#linkPromocao").on('change', function () {
             cache: false,
 
             beforeSend: function () {
-                $("#alert").removeClass("alert alert-danger").text('');
+                $("#alert").removeClass("alert alert-danger alert-success").text('');
                 $("#titulo").val('');
                 $("#site").text('');
                 $("#linkImagem").attr("src", '');
