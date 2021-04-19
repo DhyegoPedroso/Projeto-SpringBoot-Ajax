@@ -25,6 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -83,6 +84,16 @@ public class PromocaoController {
 
         model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
         return "promo-list";
+    }
+
+    @GetMapping("/list/ajax")
+    public String listarCards(@RequestParam(value = "page", defaultValue = "1") int page, ModelMap model) {
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "dtCadastro");
+        PageRequest pageRequest = PageRequest.of(page, 8, sort);
+
+        model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
+        return "promo-card";
     }
 
 }

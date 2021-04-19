@@ -1,3 +1,5 @@
+var pageNumber = 0;
+
 // efeito infinite scroll
 $(window).scroll(function () {
    
@@ -7,7 +9,30 @@ $(window).scroll(function () {
     console.log('scroll: ', scrollTop, ' | ', 'conteudo', conteudo);
     
     if (scrollTop >= conteudo) {
-        console.log("***");
+        
+       pageNumber++;
+       
+        setTimeout(function () {
+            loadByScrollBar(pageNumber);
+        }, 200);
     }
     
 });
+
+function loadByScrollBar(pageNumber) {
+    
+    $.ajax({
+       
+       method: "GET",
+       url: "/promocao/list/ajax",
+       data: {
+           page: pageNumber
+       },
+       
+        success: function (response) {
+            console.log("resposta > ", response);
+        }
+        
+    });
+    
+}
