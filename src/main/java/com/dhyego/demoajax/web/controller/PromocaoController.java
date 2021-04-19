@@ -20,6 +20,7 @@ import com.dhyego.demoajax.repository.PromocaoRepository;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.Valid;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -78,8 +79,9 @@ public class PromocaoController {
     public String listarOfertas(ModelMap model) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "dtCadastro");
+        PageRequest pageRequest = PageRequest.of(0, 8, sort);
 
-        model.addAttribute("promocoes", promocaoRepository.findAll(sort));
+        model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
         return "promo-list";
     }
 
