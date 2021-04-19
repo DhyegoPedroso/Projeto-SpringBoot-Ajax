@@ -20,6 +20,8 @@ import com.dhyego.demoajax.repository.PromocaoRepository;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.Valid;
+import org.springframework.data.domain.Sort;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -55,21 +57,30 @@ public class PromocaoController {
     public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
 
         if (result.hasErrors()) {
-            
+
             Map<String, String> errors = new HashMap<>();
-            
-             for (FieldError error : result.getFieldErrors()) {
+
+            for (FieldError error : result.getFieldErrors()) {
                 errors.put(error.getField(), error.getDefaultMessage());
             }
-         
-             return ResponseEntity.unprocessableEntity().body(errors);
-             
+
+            return ResponseEntity.unprocessableEntity().body(errors);
+
         }
-        
+
         log.info("Promocao {}", promocao.toString());
         promocao.setDtCadastro(LocalDateTime.now());
         promocaoRepository.save(promocao);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/list")
+    public String listarOfertas(ModelMap model) {
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "dtCadastro");
+
+        model.addAttribute("promocoes", promocaoRepository.findAll(sort));
+        return "promo-list";
     }
 
 }
