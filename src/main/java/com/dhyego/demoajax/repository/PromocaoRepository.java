@@ -20,5 +20,4 @@ public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
     @Modifying
     @Query("update Promocao p set p.likes = p.likes + 1 where p.id = :id")
     void updateSomarLikes(@Param("id") Long id);
-
 }

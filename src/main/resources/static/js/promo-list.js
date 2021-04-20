@@ -54,28 +54,36 @@ function loadByScrollBar(pageNumber) {
         complete: function () {
             $("#loader-img").hide();
         }
-
     });
-
 }
 
 // adicionar likes
 $(document).on("click", "button[id*='likes-btn-']", function () {
     var id = $(this).attr("id").split("-")[2];
-
     console.log("id: ", id);
 
     $.ajax({
         method: "POST",
-        url: "/promocao/like" + id,
+        url: "/promocao/like/" + id,
 
         success: function (response) {
-            $("#link-count-" + id).text(response);
+            $("#likes-count-" + id).text(response);
         },
 
         error: function (xhr) {
-            alert("Ops!! ocorreu um erro: " + xhr.status + ", " + xhr.statusText);
+            alert("Ops, ocorreu um erro: " + xhr.status + ", " + xhr.statusText);
         }
 
     });
 });
+
+
+
+
+
+
+
+
+
+
+

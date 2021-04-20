@@ -25,6 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -43,6 +44,7 @@ public class PromocaoController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    // ======================================ADD OFERTAS=============================================
     @GetMapping("/add")
     public String abrirCadastro() {
 
@@ -61,13 +63,11 @@ public class PromocaoController {
         if (result.hasErrors()) {
 
             Map<String, String> errors = new HashMap<>();
-
             for (FieldError error : result.getFieldErrors()) {
                 errors.put(error.getField(), error.getDefaultMessage());
             }
 
             return ResponseEntity.unprocessableEntity().body(errors);
-
         }
 
         log.info("Promocao {}", promocao.toString());
@@ -76,24 +76,28 @@ public class PromocaoController {
         return ResponseEntity.ok().build();
     }
 
+    // ======================================LISTAR OFERTAS==========================================
     @GetMapping("/list")
     public String listarOfertas(ModelMap model) {
-
         Sort sort = Sort.by(Sort.Direction.DESC, "dtCadastro");
         PageRequest pageRequest = PageRequest.of(0, 8, sort);
-
         model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
         return "promo-list";
     }
 
     @GetMapping("/list/ajax")
-    public String listarCards(@RequestParam(value = "page", defaultValue = "1") int page, ModelMap model) {
-
+    public String listarCards(@RequestParam(name = "page", defaultValue = "1") int page, ModelMap model) {
         Sort sort = Sort.by(Sort.Direction.DESC, "dtCadastro");
         PageRequest pageRequest = PageRequest.of(page, 8, sort);
-
         model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
         return "promo-card";
     }
 
+    // ======================================ADD LIKES===============================================
+    @PostMapping("/like/{id}")
+    public ResponseEntity<?> adicionarLikes(@PathVariable("id") Long id) {
+        promocaoRepository.updateSomarLikes(id);
+        int likes = promocaoRepository.findLikesById(id);
+        return ResponseEntity.ok(likes);
+    }
 }
