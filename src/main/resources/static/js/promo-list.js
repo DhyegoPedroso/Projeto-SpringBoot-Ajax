@@ -7,21 +7,21 @@ $(document).ready(function () {
 
 // efeito infinte scroll
 $(window).scroll(function () {
-
+    
     var scrollTop = $(this).scrollTop();
     var conteudo = $(document).height() - $(window).height();    
-
+    
     if (scrollTop >= conteudo) {
         pageNumber++;
         setTimeout(function () {
             loadByScrollBar(pageNumber);
         }, 200);
     }
-
+    
 });
 
 function loadByScrollBar(pageNumber) {
-
+    
     $.ajax({
         method: "GET",
         url: "/promocao/list/ajax",
@@ -34,13 +34,13 @@ function loadByScrollBar(pageNumber) {
         },
         
         success: function (response) {   
-
+            
             if (response.length > 150) {
-
+                
                 $(".row").fadeIn(250, function () {
                     $(this).append(response);
                 });
-
+                
             } else {
                 $("#fim-btn").show();
                 $("#loader-img").removeClass("loader");
@@ -58,3 +58,10 @@ function loadByScrollBar(pageNumber) {
     });
     
 }
+
+// adicionar likes
+$("button[id*='likes-btn-']").on("click", function () {
+    var id = $(this).attr("id").split("-")[2];
+    
+    console.log("id: ", id);
+});

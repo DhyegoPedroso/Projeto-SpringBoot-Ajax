@@ -1,7 +1,7 @@
 .corpo {  padding-top: 2rem; }
 
-.btn-group, .btn-group-vertical{
-    margin-bottom: 120px
+.card-body{
+    margin-bottom: 6rem;
 }
 
 .block-img {
