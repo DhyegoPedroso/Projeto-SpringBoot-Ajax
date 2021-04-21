@@ -22,11 +22,14 @@ $(window).scroll(function () {
 
 function loadByScrollBar(pageNumber) {
 
+    var site = $("#autocomplete-input").val();
+
     $.ajax({
         method: "GET",
         url: "/promocao/list/ajax",
         data: {
-            page: pageNumber
+            page: pageNumber,
+            site: site
         },
 
         beforeSend: function () {
@@ -86,25 +89,25 @@ $("#autocomplete-input").autocomplete({
             data: {
                 termo: request.term
             },
-            
+
             success: function (result) {
                 response(result);
             }
-            
+
         });
     }
 });
 
 $("#autocomplete-submit").on("click", function () {
     var site = $("#autocomplete-input").val();
-    
+
     $.ajax({
         method: "GET",
         url: "/promocao/site/list",
         data: {
             site: site
         },
-        
+
         beforeSend: function () {
             pageNumber = 0;
             $("#fim-btn").hide();
@@ -112,17 +115,17 @@ $("#autocomplete-submit").on("click", function () {
                 $(this).empty();
             });
         },
-        
+
         success: function (response) {
             $(".row").fadeIn(250, function () {
                 $(this).append(response);
             });
         },
-        
+
         error: function (xhr) {
             alert("Ops, algo deu errado: " + xhr.status + ", " + xhr.statusText);
         }
-        
+
     });
 });
 
