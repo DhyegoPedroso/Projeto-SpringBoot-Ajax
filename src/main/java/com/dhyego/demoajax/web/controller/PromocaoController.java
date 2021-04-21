@@ -104,7 +104,6 @@ public class PromocaoController {
     // ======================================AUTOCOMPLETE===============================================
     @GetMapping("/site")
     public ResponseEntity<?> autocompleteByTermo(@RequestParam(value = "termo") String termo) {
-
         List<String> sites = promocaoRepository.findSitesByTermo(termo);
         return ResponseEntity.ok(sites);
     }
