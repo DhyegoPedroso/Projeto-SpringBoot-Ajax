@@ -100,4 +100,13 @@ public class PromocaoController {
         int likes = promocaoRepository.findLikesById(id);
         return ResponseEntity.ok(likes);
     }
+
+    // ======================================AUTOCOMPLETE===============================================
+    @GetMapping("/site")
+    public ResponseEntity<?> autocompleteByTermo(@RequestParam(value = "termo") String termo) {
+
+        List<String> sites = promocaoRepository.findSitesByTermo(termo);
+        return ResponseEntity.ok(sites);
+    }
+
 }
