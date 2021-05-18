@@ -19,7 +19,7 @@ $(document).ready(function () {
             {data: 'linkPromocao'},
             {data: 'descricao'},
             {data: 'linkImagem'},
-            {data: 'preco'},
+            {data: 'preco'}, 
             {data: 'likes'},
             {data: 'dtCadastro'},
             {data: 'categoria.titulo'}
