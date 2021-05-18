@@ -17,8 +17,10 @@ import com.dhyego.demoajax.domain.Categoria;
 import com.dhyego.demoajax.domain.Promocao;
 import com.dhyego.demoajax.repository.CategoriaRepository;
 import com.dhyego.demoajax.repository.PromocaoRepository;
+import com.dhyego.demoajax.service.PromocaoDataTablesService;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -124,6 +126,19 @@ public class PromocaoController {
         PageRequest pageRequest = PageRequest.of(0, 8, sort);
         model.addAttribute("promocoes", promocaoRepository.findBySite(site, pageRequest));
         return "promo-card";
+    }
+
+    // ======================================DATATABLES===============================================
+    @GetMapping("/tabela")
+    public String showTabela() {
+        return "promo-datatables";
+    }
+
+    @GetMapping("/datatable/server")
+    public ResponseEntity<?> datatables(HttpServletRequest request) {
+
+        Map<String, Object> data = new PromocaoDataTablesService().execute(promocaoRepository, request);
+        return ResponseEntity.ok(data);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.dhyego.demoajax.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ public class Categoria implements Serializable {
     @Column(name = "titulo", nullable = false, unique = true)
     private String titulo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria")
     private List<Promocao> promocoes;
 

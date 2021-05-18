@@ -1,9 +1,11 @@
 package com.dhyego.demoajax.service;
 
+import com.dhyego.demoajax.domain.Promocao;
 import com.dhyego.demoajax.repository.PromocaoRepository;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,11 +33,13 @@ public class PromocaoDataTablesService {
         
         Pageable pageable = PageRequest.of(current, length, direction, column);
         
+        Page<Promocao> page = queryBy(repository, pageable);
+        
         Map<String, Object> json = new LinkedHashMap<>();
         json.put("draw", draw);
-        json.put("recordsTotal", 0);
-        json.put("recordsFiltered", 0);
-        json.put("data", null);
+        json.put("recordsTotal", page.getTotalElements());
+        json.put("recordsFiltered", page.getTotalElements());
+        json.put("data", page.getContent());
 
         return json;
 
@@ -57,6 +61,10 @@ public class PromocaoDataTablesService {
             sort = Sort.Direction.DESC;
         }
         return sort;
+    }
+
+    private Page<Promocao> queryBy(PromocaoRepository repository, Pageable pageable) {
+       return repository.findAll(pageable);
     }
 
 }
