@@ -1,17 +1,17 @@
 $(document).ready(function () {
-   
-   $("#table-server").DataTable({
-      
-      processing: true,
-      serverSide: true,
-      responsive: true,
-      lengthMenu: [10, 15, 20, 25 ],
-      
-      ajax: {
-          url: "/promocao/datatable/server",
-          data: "data"
-      },
-        
+
+    $("#table-server").DataTable({
+
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        lengthMenu: [10, 15, 20, 25],
+
+        ajax: {
+            url: "/promocao/datatable/server",
+            data: "data"
+        },
+
         columns: [
             {data: 'id'},
             {data: 'titulo'},
@@ -19,12 +19,12 @@ $(document).ready(function () {
             {data: 'linkPromocao'},
             {data: 'descricao'},
             {data: 'linkImagem'},
-            {data: 'preco'}, 
+            {data: 'preco', render: $.fn.dataTable.render.number('.', ',', 2, 'R$')},
             {data: 'likes'},
             {data: 'dtCadastro'},
             {data: 'categoria.titulo'}
         ]
-        
-   });
-    
+
+    });
+
 });

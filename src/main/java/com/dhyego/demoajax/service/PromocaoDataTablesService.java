@@ -2,6 +2,7 @@ package com.dhyego.demoajax.service;
 
 import com.dhyego.demoajax.domain.Promocao;
 import com.dhyego.demoajax.repository.PromocaoRepository;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -68,6 +69,9 @@ public class PromocaoDataTablesService {
 
         if (search.isEmpty()) {
             return repository.findAll(pageable);
+        } else if (search.matches("^[0-9]+([.,][0-9]{2})?$")) {
+            search = search.replace(",", ".");
+            return repository.findByPreco(new BigDecimal(search), pageable);
         } else {
             return repository.findByTituloOrSiteOrCategoria(search, pageable);
         }
