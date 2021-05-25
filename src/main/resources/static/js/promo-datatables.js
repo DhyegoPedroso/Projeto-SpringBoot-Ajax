@@ -53,13 +53,22 @@ $(document).ready(function () {
         ]
 
     });
-    
-    $("#btn-editar").on('click', function () {
-        alert('click no botão editar') 
+
+    $("#table-server tbody").on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            $('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
     });
-    
-     $("#btn-excluir").on('click', function () {
-        alert('click no botão excluir') 
+
+    $("#btn-editar").on('click', function () {
+        alert('click no botão editar')
+    });
+
+    $("#btn-excluir").on('click', function () {
+        alert('click no botão excluir')
     });
 
 });
