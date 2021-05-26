@@ -24,13 +24,13 @@ $("#form-add-promo").submit(function (evt) {
         beforeSend: function () {
             // removendo as mensagens
             $("span").closest('.error-span').remove();
-            
+
             // remover as bordas vermelhas
             $("#categoria").removeClass("is-invalid");
             $("#preco").removeClass("is-invalid");
             $("#linkPromocao").removeClass("is-invalid");
             $("#titulo").removeClass("is-invalid");
-            
+
             // Habita o loading
             $("#form-add-promo").hide();
             $("#loader-form").addClass("loader").show();

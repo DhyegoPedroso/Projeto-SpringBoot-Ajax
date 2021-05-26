@@ -15,20 +15,19 @@ public class PromocaoDTO {
     @NotNull
     private Long id;
 
-    @NotBlank(message = "Um título é querido")
+    @NotBlank(message = "Um título é requerido")
     private String titulo;
 
-    @NotBlank
     private String descricao;
 
-    @NotBlank(message = "Uma imagem é requerido")
+    @NotBlank(message = "Uma imagem é requerida")
     private String linkImagem;
 
     @NotNull(message = "O preço é requerido")
     @NumberFormat(style = NumberFormat.Style.CURRENCY, pattern = "#,##0.00")
     private BigDecimal preco;
 
-    @NotNull(message = "Uma categoria é requerido")
+    @NotNull(message = "Uma categoria é requerida")
     private Categoria categoria;
 
     public Long getId() {
@@ -77,6 +76,12 @@ public class PromocaoDTO {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "PromocaoDTO [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", linkImagem="
+                + linkImagem + ", preco=" + preco + ", categoria=" + categoria + "]";
     }
 
 }
