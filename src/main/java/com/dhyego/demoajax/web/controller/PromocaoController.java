@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dhyego.demoajax.domain.Categoria;
 import com.dhyego.demoajax.domain.Promocao;
+import com.dhyego.demoajax.dto.PromocaoDTO;
 import com.dhyego.demoajax.repository.CategoriaRepository;
 import com.dhyego.demoajax.repository.PromocaoRepository;
 import com.dhyego.demoajax.service.PromocaoDataTablesService;
@@ -151,6 +152,31 @@ public class PromocaoController {
     public ResponseEntity<?> preEditarPromocao(@PathVariable(value = "id") Long id) {
         Promocao promo = promocaoRepository.findById(id).get();
         return ResponseEntity.ok(promo);
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> editarPromocao(@Valid PromocaoDTO dto, BindingResult result) {
+
+        if (result.hasErrors()) {
+
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : result.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+
+            Promocao promo = promocaoRepository.findById(dto.getId()).get();
+            promo.setCategoria(dto.getCategoria());
+            promo.setDescricao(dto.getDescricao());
+            promo.setLinkImagem(dto.getLinkImagem());
+            promo.setPreco(dto.getPreco());
+            promo.setTitulo(dto.getTitulo());
+
+            promocaoRepository.save(promo);
+
+            return ResponseEntity.unprocessableEntity().body(errors);
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 }
