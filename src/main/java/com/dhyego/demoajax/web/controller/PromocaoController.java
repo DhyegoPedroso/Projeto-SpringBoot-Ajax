@@ -147,4 +147,10 @@ public class PromocaoController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/edit/{id}")
+    public ResponseEntity<?> preEditarPromocao(@PathVariable(value = "id") Long id) {
+        Promocao promo = promocaoRepository.findById(id).get();
+        return ResponseEntity.ok(promo);
+    }
+
 }

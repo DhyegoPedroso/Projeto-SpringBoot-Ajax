@@ -58,12 +58,12 @@ $(document).ready(function () {
 
     });
 
-// acao para marcar/desmarcar botoes ao clicar na ordenacao
+    // acao para marcar/desmarcar botoes ao clicar na ordenacao
     $("#table-server thead").on('click', 'tr', function () {
         table.buttons().disable();
     });
 
-// acao para marcar/desmarcar linhas clicadas
+    // acao para marcar/desmarcar linhas clicadas
     $("#table-server tbody").on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
@@ -75,45 +75,74 @@ $(document).ready(function () {
         }
     });
 
-    // acao do botao de editar
+    // acao do botao de editar (Abrir Modal)
     $("#btn-editar").on('click', function () {
         if (isSelectedRow()) {
-            $("#modal-form").modal('show');
+
+            var id = getPromoId();
+
+            $.ajax({
+                method: "GET",
+                url: "/promocao/edit/" + id,
+
+                beforeSend: function (xhr) {
+                    $("#modal-form").modal('show');
+                },
+
+                success: function (data) {
+                  $("#edt_id").val(data.id);
+                  $("#edt_site").text(data.site);
+                  $("#edt_titulo").val(data.titulo);
+                  $("#edt_descricao").val(data.descricao);
+                  $("#edt_preco").val(data.preco.toLocaleString('pt-BR',{minimumFractionDigits: 2, maximumFractionDigits: 2}));
+                  $("#edt_categoria").val(data.categoria.id);
+                  $("#edt_linkImagem").val(data.linkImagem);
+                  $("#edt_imagem").val('src', data.linkImagem);
+                },
+
+                error: function () {
+                    alert("Ops!... Ocorreu um erro, tente novamente mais tarde.");
+                }
+            });
+
+
         }
 
     });
 
-    // acao do botao de excluir
+    // acao do botao de excluir (Abrir Modal)
     $("#btn-excluir").on('click', function () {
         if (isSelectedRow()) {
             $("#modal-delete").modal('show');
         }
     });
-    
+
     // exclusao de uma promocao
     $("#btn-del-modal").on('click', function () {
-       
-       var id = getPromoId();
-       $.ajax({
-           method: "GET",
-           url: "/promocao/delete/" + id,
-           
+
+        var id = getPromoId();
+        $.ajax({
+            method: "GET",
+            url: "/promocao/delete/" + id,
+
             success: function () {
                 $("#modal-delete").modal('hide');
                 table.ajax.reload();
             },
-            
+
             error: function () {
-                alert("Ops!... Ocorreu um erro, tente mais tarde.");
+                alert("Ops!... Ocorreu um erro, tente novamente mais tarde.");
             }
-       });
-        
+        });
+
     });
 
+    // funcao que pega o id da linha selecionada
     function getPromoId() {
         return table.row(table.$('tr.selected')).data().id;
     }
 
+    // funcao para vereficar se alguma linha foi selecionada
     function isSelectedRow() {
         var trow = table.row(table.$('tr.selected'));
         return trow.data() !== undefined;
