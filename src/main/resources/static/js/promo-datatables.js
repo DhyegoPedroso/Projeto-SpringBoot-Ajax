@@ -76,14 +76,25 @@ $(document).ready(function () {
     });
 
     $("#btn-editar").on('click', function () {
+        if (isSelectedRow()) {
+            $("#modal-form").modal('show');
+        }
 
-        var id = table.row(table.$('tr.selected')).data().id;
-
-        alert('click no botão editar ID: ' + id);
     });
 
     $("#btn-excluir").on('click', function () {
-        alert('click no botão excluir');
+        if (isSelectedRow()) {
+            $("#modal-delete").modal('show');
+        }
     });
+
+    function getPromoId() {
+        return table.row(table.$('tr.selected')).data().id;
+    }
+
+    function isSelectedRow() {
+        var trow = table.row(table.$('tr.selected'));
+        return trow.data() !== undefined;
+    }
 
 });
